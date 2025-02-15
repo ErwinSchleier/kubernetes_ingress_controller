@@ -139,11 +139,11 @@ NAME                                 TYPE           CLUSTER-IP     EXTERNAL-IP  
 ingress-nginx-controller             LoadBalancer   10.225.28.99     183.234.204.126   80:31326/TCP,443:31881/TCP   5m36s
 ingress-nginx-controller-admission   ClusterIP      10.225.46.60   <none>            443/TCP                      5m36s
 ```
-Use external IP address: 183.234.204.126
- 
-![dns_record](images/505790612298397.png)
+Use external IP address, in that case: 183.234.204.126
 
 Go to your domain provider and create a new DNS record with the external-IP as the target and the value should be example. With that you will reach your exposed service at example.<your-domain>.
+
+![dns_record](images/505790612298397.png)
 
 ## 3. Deploy a Kubernetes Service
 
