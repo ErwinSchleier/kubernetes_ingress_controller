@@ -19,7 +19,7 @@ If that sounds still confusing, don’t worry, it will make more sense after you
 * Domain
 * Running Kubernetes cluster
 * Helm https://helm.sh/docs/intro/install/
-* Kubectl https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/  
+* Kubectl https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 
 ## 1. Nginx Ingress Controller Setup
 
@@ -39,6 +39,7 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
 ```
 
 Output:
+
 ```yaml
 NAME: ingress-nginx
 LAST DEPLOYED: Wed Jan 22 21:34:22 2025
@@ -76,8 +77,6 @@ An example Ingress that makes use of the controller:
         - www.example.com
         secretName: example-tls
 
-If TLS is enabled for the Ingress, a Secret containing the certificate and key must also be provided:
-
   apiVersion: v1
   kind: Secret
   metadata:
@@ -88,28 +87,27 @@ If TLS is enabled for the Ingress, a Secret containing the certificate and key m
 
   type: kubernetes.io/tls
 
-
 If TLS is enabled for the Ingress, a Secret containing the certificate and key must also be provided:
 
+apiVersion: v1
+kind: Secret
+metadata:
+name: example-tls
+namespace: foo
+data:
+tls.crt: &ltbase64 encoded cert>
 
- apiVersion: v1
- kind: Secret
- metadata:
- name: example-tls
- namespace: foo
- data:
- tls.crt: &ltbase64 encoded cert>
- 
 
- type: kubernetes.io/tls
+type: kubernetes.io/tls
 ```
 
-Check the deployment
+Check the deployment:
+
 ```bash
 kubectl get all —n ingress-nginx
 ```
 
-Output
+Output:
 ```
 NAME                                            READY   STATUS    RESTARTS   AGE
 pod/ingress-nginx-controller-5c8d66c76d-m4gh2   1/1     Running   0          56m
@@ -129,7 +127,8 @@ The pod status should be on running and you should see an external-IP address wh
 
 ## 2. Add DNS Record
 
-If the Ingress controller is in place and running, you can continue with creating a DNS record at your domain provider. Therefore, copy your external-ip adderss which you can get here:
+If the Ingress controller is in place and running, you can continue with creating a DNS record at your domain provider. Therefore, copy your external IP address which you can get here:
+
 ```bash
 kubectl get svc -n ingress-nginx
 ```
@@ -140,7 +139,7 @@ NAME                                 TYPE           CLUSTER-IP     EXTERNAL-IP  
 ingress-nginx-controller             LoadBalancer   10.225.28.99     183.234.204.126   80:31326/TCP,443:31881/TCP   5m36s
 ingress-nginx-controller-admission   ClusterIP      10.225.46.60   <none>            443/TCP                      5m36s
 ```
-Use external IP-address: 183.234.204.126
+Use external IP address: 183.234.204.126
  
 ![dns_record](images/505790612298397.png)
 
